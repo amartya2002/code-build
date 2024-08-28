@@ -7,29 +7,58 @@ export const useStore = create((set, get) => ({
   undoStack: [],
   redoStack: [],
 
-  addComponent: (type) => {
-    set(state => {
-        // Get the component definition from the registry
-        const componentDef = componentRegistry[type]
+  // addComponent: (type) => {
+  //   set(state => {
+  //       // Get the component definition from the registry
+  //       const componentDef = componentRegistry[type]
         
-        // Initialize props with default values
-        const defaultProps = Object.entries(componentDef.props).reduce((acc, [key, value]) => {
-          acc[key] = value.default
-          return acc
-        }, {})
+  //       // Initialize props with default values
+  //       const defaultProps = Object.entries(componentDef.props).reduce((acc, [key, value]) => {
+  //         acc[key] = value.default
+  //         return acc
+  //       }, {})
   
-        const newComponent = { 
-          id: Date.now(), 
-          type, 
-          props: defaultProps  // Use the default props
-        }
+  //       const newComponent = { 
+  //         id: Date.now(), 
+  //         type, 
+  //         props: defaultProps  // Use the default props
+  //       }
+  //     return { 
+  //       components: [...state.components, newComponent],
+  //       undoStack: [...state.undoStack, state.components],
+  //       redoStack: []
+  //     }
+  //   })
+  // },
+
+  addComponent: (name) => {
+    set(state => {
+      // Find the component in the registry
+      const componentEntry = Object.values(componentRegistry).flatMap(c => Object.entries(c.components)).find(([componentName]) => componentName === name);
+      if (!componentEntry) return state; // Handle case where component is not found
+      
+      const [componentName, componentDef] = componentEntry;
+      
+      // Initialize props with default values
+      const defaultProps = Object.entries(componentDef.props).reduce((acc, [key, value]) => {
+        acc[key] = value.default;
+        return acc;
+      }, {});
+  
+      const newComponent = { 
+        id: Date.now(), 
+        type: componentName, 
+        props: defaultProps
+      };
+  
       return { 
         components: [...state.components, newComponent],
         undoStack: [...state.undoStack, state.components],
         redoStack: []
-      }
-    })
+      };
+    });
   },
+  
 
   selectComponent: (id) => set(state => ({
     selectedComponent: state.components.find(c => c.id === id)

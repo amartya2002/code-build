@@ -1,24 +1,55 @@
-import { useStore } from '../store/useStore'
-import { componentRegistry } from '../utils/componentRegistry'
+import { useStore } from '../store/useStore';
+import { componentRegistry } from '../utils/componentRegistry';
 
 export default function ComponentLibrary() {
-  const addComponent = useStore(state => state.addComponent)
+  const addComponent = useStore(state => state.addComponent);
 
   return (
     <div className="w-64 px-4 py-2">
       <h2 className="text-lg font-bold mb-4">Components</h2>
-      {Object.entries(componentRegistry).map(([name, component]) => (
-        <div
-          key={name}
-          onClick={() => addComponent(name)}
-          className="block w-full text-start mb-2 bg-zinc-950 text-sm font-medium rounded-md text-white p-3 cursor-pointer"
-        >
-          {name}
+      {Object.entries(componentRegistry).map(([categoryName, category]) => (
+        <div key={categoryName} className="mb-4">
+          <h3 className="text-lg font-semibold mb-2">{categoryName}</h3>
+          {Object.entries(category.components).map(([componentName, component]) => (
+            <div
+              key={componentName}
+              onClick={() => addComponent(componentName)}
+              className="flex items-center mb-2 p-2 bg-gray-200 rounded cursor-pointer hover:bg-gray-300"
+            >
+              <img src={component.thumbnail} alt={`${componentName} thumbnail`} className="w-16 h-16 mr-2 rounded" />
+              <span className="text-sm font-medium">{componentName}</span>
+            </div>
+          ))}
         </div>
       ))}
     </div>
-  )
+  );
 }
+
+
+
+
+// import { useStore } from '../store/useStore'
+// import { componentRegistry } from '../utils/componentRegistry'
+
+// export default function ComponentLibrary() {
+//   const addComponent = useStore(state => state.addComponent)
+
+//   return (
+//     <div className="w-64 px-4 py-2">
+//       <h2 className="text-lg font-bold mb-4">Components</h2>
+//       {Object.entries(componentRegistry).map(([name, component]) => (
+//         <div
+//           key={name}
+//           onClick={() => addComponent(name)}
+//           className="block w-full text-start mb-2 bg-zinc-950 text-sm font-medium rounded-md text-white p-3 cursor-pointer"
+//         >
+//           {name}
+//         </div>
+//       ))}
+//     </div>
+//   )
+// }
 
 
 // import React, { useState } from 'react';

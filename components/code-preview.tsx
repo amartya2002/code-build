@@ -341,8 +341,8 @@ const CompactCodePreview = () => {
     //     <AccordionContent>
           <div className=" bottom-0 left-0 right-0 bg-white text-white mx-2">
             {/* Tabs for File Selection */}
-            <Tabs defaultValue={selectedFile} value={selectedFile} onValueChange={setSelectedFile} className="w-full">
-              <TabsList>
+            <Tabs defaultValue={selectedFile} value={selectedFile} onValueChange={setSelectedFile} className="">
+              <TabsList className='overflow-x-scroll max-w-72'>
                 {Object.keys(generatedFiles).map((filename) => (
                   <TabsTrigger
                     key={filename}

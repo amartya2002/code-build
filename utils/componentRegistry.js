@@ -1,28 +1,68 @@
+// utils/componentRegistry.js
 export const componentRegistry = {
-    Button: {
-      component: ({ children, onClick }) => (
-        <button onClick={onClick} className="px-4 py-1.5 bg-blue-500 text-white rounded">
-          {children}
-        </button>
-      ),
-      props: {
-        children: { type: 'string', default: 'Click me' },
-        onClick: { type: 'function', default: () => {} }
+  Buttons: {
+    components: {
+      PrimaryButton: {
+        component: ({ children, onClick }) => (
+          <button onClick={onClick} className="px-4 py-2 bg-blue-500 text-white rounded">
+            {children}
+          </button>
+        ),
+        props: {
+          children: { type: 'string', default: 'Primary Button' },
+          onClick: { type: 'function', default: () => {} }
+        },
+        thumbnail: 'https://via.placeholder.com/150?text=Primary+Button'
+      },
+      SecondaryButton: {
+        component: ({ children, onClick }) => (
+          <button onClick={onClick} className="px-4 py-2 bg-gray-500 text-white rounded">
+            {children}
+          </button>
+        ),
+        props: {
+          children: { type: 'string', default: 'Secondary Button' },
+          onClick: { type: 'function', default: () => {} }
+        },
+        thumbnail: 'https://via.placeholder.com/150?text=Secondary+Button'
       }
-    },
-    Card: {
-      component: ({ title, content }) => (
-        <div className="p-4 bg-white border rounded">
-          <h2 className="text-black">{title}</h2>
-          <p className="text-red-500">{content}</p>
-        </div>
-      ),
-      props: {
-        title: { type: 'string', default: 'Card Title' },
-        content: { type: 'string', default: 'Card content' }
+    }
+  },
+  Cards: {
+    components: {
+      BasicCard: {
+        component: ({ title, content }) => (
+          <div className="p-4 bg-white border rounded">
+            <h2 className="text-black">{title}</h2>
+            <p className="text-gray-500">{content}</p>
+          </div>
+        ),
+        props: {
+          title: { type: 'string', default: 'Card Title' },
+          content: { type: 'string', default: 'Card content' }
+        },
+        thumbnail: 'https://via.placeholder.com/150?text=Basic+Card'
+      },
+      AdvancedCard: {
+        component: ({ title, content, footer }) => (
+          <div className="p-4 bg-white border rounded">
+            <h2 className="text-black">{title}</h2>
+            <p className="text-gray-500">{content}</p>
+            <div className="mt-2 text-gray-600">{footer}</div>
+          </div>
+        ),
+        props: {
+          title: { type: 'string', default: 'Card Title' },
+          content: { type: 'string', default: 'Card content' },
+          footer: { type: 'string', default: 'Card footer' }
+        },
+        thumbnail: 'https://via.placeholder.com/150?text=Advanced+Card'
       }
     }
   }
+};
+
+
 
 // import Button from './reusable-components/Button'
 // import Card from './reusable-components/Card';
